@@ -403,8 +403,8 @@ def build_shop(coll, o):
 
 def build_kunlun(coll, o):
     dome(coll, o, (0.82, 0.88, 0.96), (0.24, 0.42, 0.78))
-    snow = mat_surface("snow", (0.92, 0.95, 1.0), rough=0.8)
-    blue = mat_surface("far_rock", (0.46, 0.53, 0.66), rough=0.9)
+    snow = mat_surface("snow", (0.66, 0.72, 0.84), rough=0.8)
+    blue = mat_surface("far_rock", (0.3, 0.36, 0.48), rough=0.9)
     rock_tex = bpy.data.textures.new("rock", "CLOUDS")
     rock_tex.noise_scale = 5
     for x, y, r, h, m in ((-50, 90, 32, 58, snow), (15, 110, 40, 70, snow), (60, 85, 28, 46, snow),
@@ -420,15 +420,15 @@ def build_kunlun(coll, o):
     bev = ledge.modifiers.new("bev", "BEVEL")
     bev.width = 0.2
     bev.segments = 3
-    prim("cyl", coll, at(o, 1.5, 3.2, 0.62), mat=mat_surface("stem", (0.55, 0.38, 0.22)), vertices=12, radius=0.04, depth=0.25)
-    prim("sphere", coll, at(o, 1.5, 3.2, 0.76), (0.24, 0.24, 0.07),
-         mat=mat_surface("lingzhi", (0.6, 0.18, 0.08), 0.35, emit=(1.0, 0.6, 0.15), strength=0.6))
+    prim("cyl", coll, at(o, 1.5, 3.2, 0.68), mat=mat_surface("stem", (0.55, 0.38, 0.22)), vertices=12, radius=0.06, depth=0.36)
+    prim("sphere", coll, at(o, 1.5, 3.2, 0.88), (0.38, 0.38, 0.1),
+         mat=mat_surface("lingzhi", (0.6, 0.18, 0.08), 0.35, emit=(1.0, 0.6, 0.15), strength=1.2))
     herb_light = point(coll, at(o, 1.5, 2.8, 1.1), (1.0, 0.75, 0.3), 40, "herb_light", radius=0.2)
-    mist = mat_unlit("mist", (0.95, 0.97, 1.0), 1.0, alpha=0.22)
+    mist = mat_unlit("mist", (0.85, 0.89, 0.96), 1.0, alpha=0.14)
     for y, z in ((25, 4), (40, 9), (60, 14)):
         m = prim("plane", coll, at(o, 0, y, z), (90, 8, 1), rot=(90, 0, 0), mat=mist)
         m.visible_shadow = False
-    sun(coll, (50, 0, 30), (1.0, 0.95, 0.88), 2.2, "kunlun_sun")
+    sun(coll, (50, 0, 30), (1.0, 0.93, 0.85), 1.5, "kunlun_sun")
     FX["kunlun"] = {"herb_light": herb_light}
 
 
@@ -558,7 +558,7 @@ def fx_bowl_off(frame):
 def fx_herb_glow(shot, fx):
     light = FX["kunlun"]["herb_light"]
     key(light, "data.energy", fx["frame"] - 4, 40, "BEZIER")
-    key(light, "data.energy", fx["frame"] + 8, 900, "CONSTANT")
+    key(light, "data.energy", fx["frame"] + 8, 250, "CONSTANT")
 
 
 def fx_gate_close(shot, fx):
@@ -670,13 +670,19 @@ def build_actor(shot, actor, coll):
         if k.get("pop"):
             for df, s in ((0, 0.05), (5, 1.12), (9, 1.0)):
                 key(root, "scale", f + df, (flip * s, s, s), "BEZIER")
+    return root
 
 
-def build_camera(shot, coll):
+def build_camera(shot, coll, roots):
     o = ORIGINS[shot["set"]]
     c = shot["cam"]
     shaker = empty(coll, (0, 0, 0), f"{shot['id']}_shaker")
-    look = empty(coll, at(o, *c["look"]), f"{shot['id']}_look")
+    if "follow" in c:
+        look = empty(coll, (0, 0, 0), f"{shot['id']}_look")
+        look.parent = roots[f"{shot['id']}_{c['follow']}"]
+        look.location = (0, 0, c["follow_z"])
+    else:
+        look = empty(coll, at(o, *c["look"]), f"{shot['id']}_look")
     data = bpy.data.cameras.new(shot["id"])
     data.lens = c["lens"]
     data.sensor_width = 36
@@ -736,9 +742,8 @@ def main():
     actors_coll = new_set("actors")
     cams_coll = new_set("cameras")
     for shot in TIMELINE["shots"]:
-        build_camera(shot, cams_coll)
-        for actor in shot.get("actors", []):
-            build_actor(shot, actor, actors_coll)
+        roots = {f"{shot['id']}_{a['who']}": build_actor(shot, a, actors_coll) for a in shot.get("actors", [])}
+        build_camera(shot, cams_coll, roots)
         for fx in shot["fx"]:
             FX_HANDLERS[fx["type"]](shot, fx)
     fx_bowl_off(next(s for s in TIMELINE["shots"] if s["id"] == "s23")["start"])

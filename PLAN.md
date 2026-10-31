@@ -45,7 +45,7 @@ python tools/assemble.py .
 4. Narration, word timings, music. DONE (ElevenLabs, 68.3 s narration).
 5. `shotlist.json`. DONE. 27 shots, 70.0 s, 7 sets.
 6. Sets, hero props (pagoda, golden bowl, herb, crab), characters. DONE.
-7. Review loop. Two contact sheet passes. Fixed so far: invisible wall silhouette, tiny characters in wide shots, cropped two-shots, temple gate stuck open, crab close-ups too tight.
+7. Review loop. Three contact sheet passes. Fixed: invisible wall silhouette, tiny characters in wide shots, cropped two-shots, temple gate stuck open, crab close-ups too tight, Kunlun overexposure, Bai lost in the s17 flight (camera now follows her).
 8. Full render, captions, sound effects, mix. DONE. `episode/final.mp4` verified by ffprobe: 1080x1920, 30/1 fps, 70.0 s, AAC audio, peak -0.1 dB.
 9. Phone test by the user.
 
