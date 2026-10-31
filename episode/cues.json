@@ -1,0 +1,20 @@
+{
+  "music": {"file": "audio/music.mp3", "skip": 2.2, "gain": 0.2, "fade_out": 1.5},
+  "voice": {"file": "audio/voice.mp3", "gain": 1.0},
+  "stressed": ["1924", "cheered", "snake", "giant", "forever", "fahai", "crab", "umbrella", "love", "dead"],
+  "sfx": [
+    {"file": "audio/sfx/collapse.mp3", "shot": "s02", "on": "fell", "delay": -3, "gain": 0.7},
+    {"file": "audio/sfx/shimmer.mp3", "shot": "s05", "on": "snake", "gain": 0.35},
+    {"file": "audio/sfx/rain.mp3", "shot": "s06", "at": "start", "dur": 2.2, "loop": true, "gain": 0.35},
+    {"file": "audio/sfx/shimmer.mp3", "shot": "s07", "on": "human", "delay": -2, "gain": 0.5},
+    {"file": "audio/sfx/rain.mp3", "shot": "s08", "at": "start", "dur": 6.9, "loop": true, "gain": 0.35},
+    {"file": "audio/sfx/hiss.mp3", "shot": "s15", "on": "giant", "delay": -3, "gain": 0.6},
+    {"file": "audio/sfx/thud.mp3", "shot": "s16", "on": "died", "delay": 2, "gain": 0.6},
+    {"file": "audio/sfx/shimmer.mp3", "shot": "s17", "on": "herb", "gain": 0.5},
+    {"file": "audio/sfx/gate.mp3", "shot": "s19", "on": "locked", "delay": 4, "gain": 0.55},
+    {"file": "audio/sfx/flood.mp3", "shot": "s20", "on": "flooded", "gain": 0.6},
+    {"file": "audio/sfx/gong.mp3", "shot": "s21", "on": "trapped", "delay": 28, "gain": 0.6},
+    {"file": "audio/sfx/collapse.mp3", "shot": "s23", "on": "1924", "gain": 0.7},
+    {"file": "audio/sfx/crack.mp3", "shot": "s25", "on": "crab", "gain": 0.7}
+  ]
+}
