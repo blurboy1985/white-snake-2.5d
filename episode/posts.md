@@ -69,7 +69,7 @@ Source code: https://github.com/blurboy1985/white-snake-2.5d
 | X | https://x.com/daniu_101/status/2116542335584698867 | |
 | YouTube Shorts | https://youtube.com/shorts/8U8qmV2rVVQ | Public, not made for kids, AI use: No, no paid promotion. Published after YouTube's checks finished with no issues. |
 | LinkedIn | https://www.linkedin.com/feed/update/urn:li:activity:7522309198261682176/ | Visible to anyone |
-| Facebook Reel | https://www.facebook.com/reel/1677027930604410 | Audience left at the account default, Friends. AI label off |
+| Facebook Reel | https://www.facebook.com/reel/1677027930604410 | Public (changed from the account default, Friends, after posting). AI label off |
 | Instagram Reel | https://www.instagram.com/blurboy1985/reel/DfKav7BJgV8xp9y_eOZwZgYZnphZeO4GYyAwcA0/ | Original 9:16 crop, not cross-posted to Facebook |
 
 All five used `episode/final_upload.mp4` (8.9 MB, two-pass 950 kbps, same 1080x1920 30 fps 70 s) because the browser upload limit is 10 MB.
